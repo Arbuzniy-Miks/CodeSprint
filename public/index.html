@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocMind API Тестер</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧪 DocMind API Тестер</h1>
+            <p>Тестирование бэкенд функций</p>
+        </header>
+
+        <!-- Статус подключения -->
+        <section class="status-section">
+            <h2>Статус сервера</h2>
+            <button onclick="checkHealth()" class="btn btn-primary">Проверить подключение</button>
+            <div id="statusResult" class="result"></div>
+        </section>
+
+        <!-- Получить всех пользователей -->
+        <section class="api-section">
+            <h2>📋 Получить всех пользователей (GET)</h2>
+            <button onclick="getUsers()" class="btn btn-success">Получить пользователей</button>
+            <div id="usersResult" class="result"></div>
+        </section>
+
+        <!-- Получить пользователя по ID -->
+        <section class="api-section">
+            <h2>🔍 Получить пользователя по ID (GET)</h2>
+            <div class="form-group">
+                <input type="number" id="getUserId" placeholder="ID пользователя" min="1">
+                <button onclick="getUserById()" class="btn btn-info">Получить</button>
+            </div>
+            <div id="userByIdResult" class="result"></div>
+        </section>
+
+        <!-- Создать пользователя -->
+        <section class="api-section">
+            <h2>➕ Создать пользователя (POST)</h2>
+            <div class="form-group">
+                <input type="text" id="createName" placeholder="Имя" required>
+                <input type="email" id="createEmail" placeholder="Email" required>
+                <select id="createRole">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button onclick="createUser()" class="btn btn-success">Создать</button>
+            </div>
+            <div id="createResult" class="result"></div>
+        </section>
+
+        <!-- Обновить пользователя -->
+        <section class="api-section">
+            <h2>✏️ Обновить пользователя (PUT)</h2>
+            <div class="form-group">
+                <input type="number" id="updateId" placeholder="ID пользователя" min="1">
+                <input type="text" id="updateName" placeholder="Новое имя">
+                <input type="email" id="updateEmail" placeholder="Новый email">
+                <select id="updateRole">
+                    <option value="">Не менять роль</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button onclick="updateUser()" class="btn btn-warning">Обновить</button>
+            </div>
+            <div id="updateResult" class="result"></div>
+        </section>
+
+        <!-- Удалить пользователя -->
+        <section class="api-section">
+            <h2>🗑️ Удалить пользователя (DELETE)</h2>
+            <div class="form-group">
+                <input type="number" id="deleteId" placeholder="ID пользователя" min="1">
+                <button onclick="deleteUser()" class="btn btn-danger">Удалить</button>
+            </div>
+            <div id="deleteResult" class="result"></div>
+        </section>
+
+        <!-- Эхо тест -->
+        <section class="api-section">
+            <h2>📡 Эхо тест (POST)</h2>
+            <div class="form-group">
+                <textarea id="echoData" placeholder='{"test": "данные"}' rows="3"></textarea>
+                <button onclick="echoTest()" class="btn btn-info">Отправить</button>
+            </div>
+            <div id="echoResult" class="result"></div>
+        </section>
+
+        <!-- Логи -->
+        <section class="logs-section">
+            <h2>📝 Логи запросов</h2>
+            <button onclick="clearLogs()" class="btn btn-secondary">Очистить логи</button>
+            <div id="logs" class="logs"></div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
