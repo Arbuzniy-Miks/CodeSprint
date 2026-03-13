@@ -1,86 +1,90 @@
-@"
-# 🧠 DocMind AI - AI-ассистент для работы с документами
+🧠 DocMind AI - AI-ассистент для работы с документами
+Code Sprint 2026 | 13-16 января | Загружайте PDF, JPG или PNG и получайте текст, краткую сводку и ответы на вопросы
 
-> Хакатон проект: Загружайте PDF, JPG или PNG и получайте текст, краткую сводку и ответы на вопросы
-
-## 🎯 Описание
-
+🎯 Описание
 DocMind AI - это интеллектуальный ассистент для анализа документов с использованием OCR и LLM технологий.
 
-### Основные возможности:
-- 📄 Загрузка документов (PDF, JPG, PNG)
-- 🔍 OCR распознавание текста
-- 📝 Автоматическое создание краткой сводки
-- ❓ Вопросы-ответы по содержимому документа
-- 🛡️ Защита от AI-галлюцинаций
+Какую проблему решаем?
+📚 Ежедневно люди тратят часы на чтение и анализ документов. DocMind AI автоматизирует этот процесс:
 
-## 🛠️ Технологии
+Студенты - быстрый анализ учебных материалов и конспектов
+Юристы - извлечение ключевой информации из договоров
+Бизнес - обработка отчётов, счетов и деловой документации
+Основные возможности
+Функция	Описание
+📄 Загрузка документов	PDF, JPG, PNG
+🔍 OCR распознавание	Извлечение текста из изображений
+📝 Краткая сводка	Автоматическое саммари документа
+❓ Вопрос-ответ	Задавайте вопросы по содержимому
+🛡️ Антигаллюцинации	Ответы только на основе документа
+🛠️ Технологии
+Backend
+Node.js + Express
+Tesseract.js (OCR)
+pdf-parse
+Frontend
+HTML5 / CSS3
+Vanilla JavaScript
+AI/ML
+Google Gemini API
+📦 Установка
+Bash
 
-### Backend
-- Node.js + Express
-- Tesseract.js (OCR)
-- pdf-parse
-- OpenAI API
-
-### Frontend
-- HTML5
-- CSS3
-- Vanilla JavaScript
-
-## 📦 Установка
-
-\`\`\`bash
 # Клонировать репозиторий
-git clone https://github.com/ВАШ_ЮЗЕРНЕЙМ/docmind-project.git
+git clone https://github.com/YOUR_USERNAME/docmind-project.git
 cd docmind-project
 
 # Установить зависимости
 npm install
 
-# Создать .env файл
-copy .env.example .env
-# Отредактируйте .env и добавьте свой API ключ
-\`\`\`
+# Настроить переменные окружения
+cp .env.example .env
+Отредактируйте .env:
 
-## 🚀 Запуск
+env
 
-\`\`\`bash
-# Development режим
+GEMINI_API_KEY=your_api_key_here
+PORT=3000
+🚀 Запуск
+Bash
+
+# Запустить backend (development)
 npm run dev
 
-# В другом терминале запустите фронтенд
+# В новом терминале - запустить frontend
 cd frontend
 npx http-server -p 8080
-\`\`\`
+🌐 Откройте в браузере: http://localhost:8080
 
-Откройте: http://localhost:8080
+📁 Структура проекта
+text
 
-## 📁 Структура проекта
-
-\`\`\`
 docmind-project/
-├── src/                    # Backend код
+├── src/                    # Backend
 │   ├── server.js
 │   ├── routes/
 │   ├── controllers/
 │   ├── services/
 │   └── utils/
-├── frontend/               # Frontend код
+├── frontend/               # Frontend
 │   ├── index.html
 │   ├── styles/
 │   └── js/
-├── storage/                # Хранилище файлов
+├── storage/                # Загруженные файлы
 ├── docs/                   # Документация
+├── .env.example
 └── README.md
-\`\`\`
-
-## 👥 Команда
-
-- Марина - Full Stack Developer
-
-## 📄 Лицензия
-
+👥 Команда
+Участник	Роль	Задачи
+🎨 Марина	Designer & Backend	UI/UX дизайн, серверная логика
+💻 Саша	Frontend Developer	Клиентская часть, интерфейс
+🤖 Катя	ML Engineer	Интеграция Gemini, промпты
+📄 Лицензия
 MIT
 
-## 🏆 Хакатон 2024
-"@ | Out-File -FilePath README.md -Encoding UTF8
+🏆 Code Sprint 2026
+
+
+Сделано с ❤️ командой Undefined
+
+
