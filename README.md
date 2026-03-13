@@ -75,7 +75,7 @@ PORT=3000
 npm run dev
 
 # В новом терминале — запустить frontend
-cd frontend
+cd public
 npx http-server -p 8080
 ```
 
@@ -87,13 +87,7 @@ npx http-server -p 8080
 | 💻 **Саша** | Frontend Developer | Клиентская часть, интерфейс |
 | 🤖 **Катя** | ML Engineer | Интеграция Gemini, промпт-инжиниринг |
 
----
 
-## 📄 Лицензия
-
-MIT
-
----
 
 <div align="center">
 
