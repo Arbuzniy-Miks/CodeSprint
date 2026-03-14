@@ -93,9 +93,9 @@ MIT
 
 <div align="center">
 
-## 🏆 Code Sprint 2026
+**🏆 Code Sprint 2026**
 
 
-Сделано с ❤️ командой **Undefined**
+# Сделано с ❤️ командой **Undefined**
 
 </div>
