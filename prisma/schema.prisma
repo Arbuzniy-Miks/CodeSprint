@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Document {
+  id            String   @id @default(uuid())
+  originalName  String
+  storedName    String
+  mimeType      String
+  extension     String
+  size          Int
+  filePath      String
+  fileUrl       String?
+  extractedText String?  @map("text")
+  summary       String?
+  status        String   @default("uploaded")
+  error         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  questions     QuestionAnswer[]
+}
+
+model QuestionAnswer {
+  id          String   @id @default(uuid())
+  documentId  String
+  question    String
+  answer      String
+  sourceChunk String?
+  createdAt   DateTime @default(now())
+
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+}
