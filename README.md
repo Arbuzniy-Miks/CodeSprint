@@ -74,7 +74,7 @@ PORT=3000
 # Запустить 
 npm run dev
 
-
+```
 ## 👥 Команда Undefined
 
 | Участник | Роль | Зона ответственности |
@@ -89,9 +89,7 @@ npm run dev
 
 MIT
 
----
 
-<div align="center">
 
 **🏆 Code Sprint 2026**
 
