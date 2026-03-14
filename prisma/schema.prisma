@@ -16,9 +16,23 @@ model Document {
   size          Int
   filePath      String
   fileUrl       String?
-  extractedText String?
+  extractedText String?  @map("text")
   summary       String?
   status        String   @default("uploaded")
+  error         String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  questions     QuestionAnswer[]
+}
+
+model QuestionAnswer {
+  id          String   @id @default(uuid())
+  documentId  String
+  question    String
+  answer      String
+  sourceChunk String?
+  createdAt   DateTime @default(now())
+
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
 }
