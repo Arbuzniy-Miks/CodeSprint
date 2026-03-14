@@ -1,22 +1,30 @@
-const multer = require('multer');
+const AppError = require('../utils/AppError');
 
-module.exports = (err, req, res, next) => {
-  console.error('ERROR:', err);
+const errorMiddleware = (err, req, res, next) => {
+  console.error('❌ Error:', err);
 
-  if (err instanceof multer.MulterError) {
-    if (err.code === 'LIMIT_FILE_SIZE') {
-      return res.status(400).json({
-        success: false,
-        message: 'Файл превышает максимально допустимый размер 20 МБ'
-      });
-    }
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      success: false,
+      message: err.message
+    });
   }
 
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'Внутренняя ошибка сервера';
+  // Ошибки Prisma
+  if (err.code === 'P2002') {
+    return res.status(409).json({
+      success: false,
+      message: 'Запись с такими данными уже существует'
+    });
+  }
 
-  res.status(statusCode).json({
+  // Необработанные ошибки
+  res.status(500).json({
     success: false,
-    message
+    message: process.env.NODE_ENV === 'production' 
+      ? 'Внутренняя ошибка сервера' 
+      : err.message
   });
 };
+
+module.exports = errorMiddleware;
