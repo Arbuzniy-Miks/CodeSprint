@@ -71,39 +71,9 @@ PORT=3000
 ## 🚀 Запуск
 
 ```bash
-# Запустить backend (development)
+# Запустить 
 npm run dev
 
-# В новом терминале — запустить frontend
-cd frontend
-npx http-server -p 8080
-```
-
-🌐 Откройте в браузере: **http://localhost:8080**
-
----
-
-## 📁 Структура проекта
-
-```
-docmind-project/
-├── src/                    # Backend
-│   ├── server.js
-│   ├── routes/
-│   ├── controllers/
-│   ├── services/
-│   └── utils/
-├── frontend/               # Frontend
-│   ├── index.html
-│   ├── styles/
-│   └── js/
-├── storage/                # Загруженные файлы
-├── docs/                   # Документация
-├── .env.example
-└── README.md
-```
-
----
 
 ## 👥 Команда Undefined
 
@@ -125,7 +95,6 @@ MIT
 
 ## 🏆 Code Sprint 2026
 
-**13-16 января 2026**
 
 Сделано с ❤️ командой **Undefined**
 
