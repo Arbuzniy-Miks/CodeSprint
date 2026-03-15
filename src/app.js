@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Статические файлы
+// Статические файлы из public
 app.use(express.static(path.join(__dirname, '../public')));
 
 // API Routes
@@ -38,9 +38,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Для всех остальных запросов
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+// Главная страница - отдаем main.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/main.html'));
+});
+
+// Для всех остальных запросов - 404
+app.use((req, res) => {
+  res.status(404).json({ 
+    success: false, 
+    message: 'Route not found' 
+  });
 });
 
 // Error handling

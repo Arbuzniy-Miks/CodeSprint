@@ -24,6 +24,7 @@
     "array-flatten": "^1.1.1",
     "async": "^3.2.6",
     "aws-ssl-profiles": "^1.1.2",
+    "axios": "^1.13.6",
     "babyparse": "^0.2.1",
     "balanced-match": "^1.0.2",
     "base64-js": "^1.5.1",
