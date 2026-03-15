@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DocMind</title>
+        <link rel="stylesheet" href="/client/styles/main.css">
+    </head>
+    <body>
+        <div class="container">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h1 class="logo">DocMind</h1>
+                    <span class="folder-icon">
+                        <svg width="33" height="23" viewBox="0 0 33 23"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="20.0367" height="7.66536" rx="2"
+                                fill="#B3B3B3" />
+                            <rect y="1.70341" width="32.6915" height="20.4409"
+                                rx="5" fill="#D9D9D9" />
+                            <path
+                                d="M17.2872 15.0829V14.8939H19.2752C19.8445 14.8939 20.2808 15.0783 20.5842 15.4469C20.8875 15.8156 21.0392 16.3359 21.0392 17.0079V17.5329C21.0392 18.2096 20.8875 18.7323 20.5842 19.1009C20.2808 19.4696 19.8445 19.6539 19.2752 19.6539H17.2872V19.4719L17.6722 19.4299C17.7468 19.4206 17.7912 19.4019 17.8052 19.3739C17.8192 19.3459 17.8262 19.2503 17.8262 19.0869V15.4609C17.8262 15.2976 17.8192 15.2019 17.8052 15.1739C17.7912 15.1459 17.7468 15.1273 17.6722 15.1179L17.2872 15.0829ZM19.2612 15.1179H18.4352V19.4299H19.2612C19.5132 19.4299 19.7208 19.3833 19.8842 19.2899C20.0475 19.1966 20.1688 19.0379 20.2482 18.8139C20.3322 18.5853 20.3742 18.2749 20.3742 17.8829V16.6579C20.3742 16.2706 20.3322 15.9649 20.2482 15.7409C20.1688 15.5169 20.0475 15.3583 19.8842 15.2649C19.7208 15.1669 19.5132 15.1179 19.2612 15.1179ZM27.2356 19.4719V19.6539H25.5486V19.4719L25.9336 19.4299C26.0083 19.4206 26.0526 19.4019 26.0666 19.3739C26.0806 19.3413 26.0876 19.2456 26.0876 19.0869V15.2929L24.6316 19.0939H24.1556L22.6926 15.2929V19.0869C22.6926 19.2456 22.6996 19.3413 22.7136 19.3739C22.7276 19.4019 22.7719 19.4206 22.8466 19.4299L23.2316 19.4719V19.6539H21.8946V19.4719L22.2796 19.4299C22.3543 19.4206 22.3986 19.4019 22.4126 19.3739C22.4266 19.3413 22.4336 19.2456 22.4336 19.0869V15.4609C22.4336 15.3023 22.4266 15.2089 22.4126 15.1809C22.3986 15.1483 22.3543 15.1273 22.2796 15.1179L21.8946 15.0829V14.8939H23.1756L24.5826 18.5689L25.9896 14.8939H27.2356V15.0829L26.8506 15.1179C26.7759 15.1273 26.7316 15.1483 26.7176 15.1809C26.7036 15.2089 26.6966 15.3023 26.6966 15.4609V19.0869C26.6966 19.2456 26.7036 19.3413 26.7176 19.3739C26.7316 19.4019 26.7759 19.4206 26.8506 19.4299L27.2356 19.4719Z"
+                                fill="#3A3A3A" />
+                        </svg>
+                    </span>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li>
+                            <span class="icon">
+                                <svg viewBox="0 0 24 24" fill="none"
+                                    stroke="#D9D9D9" stroke-width="2" width="20"
+                                    height="20">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </span>
+                            NewDoc
+                        </li>
+                        <li>
+                            <span class="icon">
+                                <svg width="21" height="15" viewBox="0 0 21 15"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="3.63232" y1="1.60899" x2="20.5835"
+                                        y2="1.60899" stroke="white" />
+                                    <line x1="3.63232" y1="5.82697" x2="20.5835"
+                                        y2="5.82697" stroke="white" />
+                                    <line x1="3.63232" y1="10.0449" x2="20.5835"
+                                        y2="10.0449" stroke="white" />
+                                    <line x1="3.63232" y1="14.2629" x2="20.5835"
+                                        y2="14.2629" stroke="white" />
+                                    <rect width="2.42159" height="2.10899"
+                                        rx="1" fill="#D9D9D9" />
+                                    <rect y="4.21798" width="2.42159"
+                                        height="2.10899" rx="1"
+                                        fill="#D9D9D9" />
+                                    <rect y="8.43595" width="2.42159"
+                                        height="2.10899" rx="1"
+                                        fill="#D9D9D9" />
+                                    <rect y="12.6539" width="2.42159"
+                                        height="2.10899" rx="1"
+                                        fill="#D9D9D9" />
+                                </svg>
+                            </span>
+                            List
+                        </li>
+                        <li>
+                            <span class="icon">
+                                <svg width="21" height="15" viewBox="0 0 21 15"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13.8713 0.5C17.3486 0.5 20.0833 3.04977 20.0833 6.0957C20.083 9.14145 17.3484 11.6904 13.8713 11.6904C10.3943 11.6904 7.65968 9.14141 7.65942 6.0957C7.65942 3.04981 10.3941 0.500055 13.8713 0.5Z"
+                                        stroke="#D9D9D9" />
+                                    <rect width="9.77848" height="1.47235"
+                                        rx="0.736177"
+                                        transform="matrix(0.871855 -0.489764 0.510306 0.859993 0 13.4967)"
+                                        fill="#D9D9D9" />
+                                </svg>
+                            </span>
+                            Search
+                        </li>
+                    </ul>
+                </nav>
+                <div class="sidebar-sections">
+                    <div class="section">
+                        <h3>Today</h3>
+                        <div id="history-today"></div>
+                    </div>
+                    <div class="section">
+                        <h3>Previous 7 Days</h3>
+                        <div id="history-week"></div>
+                    </div>
+                    <div class="section">
+                        <h3>Previous 30 Days</h3>
+                        <div id="history-month"></div>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    <!-- Профиль пользователя (сверху) -->
+                    <div class="user-profile hidden" id="user-profile">
+                        <div class="user-avatar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="#D9D9D9" stroke-width="2"/>
+                                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="#D9D9D9" stroke-width="2" 
+                                    stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="user-email" id="display-email"></span>
+                    </div>
+                    
+                    <!-- Ссылки (снизу) -->
+                    <div class="footer-links">
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </aside>
+            <main class="main-content">
+                <header class="main-header">
+                    <button class="login-btn">Login</button>
+                </header>
+                <div class="chat-container">
+                    <!-- Welcome Screen -->
+                    <div class="welcome-screen" id="welcome-screen">
+                        <div class="title-wrapper">
+                            <h1 class="main-logo">DocMind</h1>
+                            <span class="folder-icon-large">
+                                <svg width="99" height="79" viewBox="0 0 99 79"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.0979004" width="46.0409"
+                                        height="30.2762" rx="7"
+                                        fill="#B3B3B3" />
+                                    <rect y="7.24692" width="98.2734"
+                                        height="71.7531" rx="19"
+                                        fill="#D9D9D9" />
+                                    <path
+                                        d="M73.432 67.123V66.88H75.988C76.72 66.88 77.281 67.117 77.671 67.591C78.061 68.065 78.256 68.734 78.256 69.598V70.273C78.256 71.143 78.061 71.815 77.671 72.289C77.281 72.763 76.72 73 75.988 73H73.432V72.766L73.927 72.712C74.023 72.7 74.08 72.676 74.098 72.64C74.116 72.604 74.125 72.481 74.125 72.271V67.609C74.125 67.399 74.116 67.276 74.098 67.24C74.08 67.204 74.023 67.18 73.927 67.168L73.432 67.123ZM75.97 67.168H74.908V72.712H75.97C76.294 72.712 76.561 72.652 76.771 72.532C76.981 72.412 77.137 72.208 77.239 71.92C77.347 71.626 77.401 71.227 77.401 70.723V69.148C77.401 68.65 77.347 68.257 77.239 67.969C77.137 67.681 76.981 67.477 76.771 67.357C76.561 67.231 76.294 67.168 75.97 67.168ZM86.2228 72.766V73H84.0538V72.766L84.5488 72.712C84.6448 72.7 84.7018 72.676 84.7198 72.64C84.7378 72.598 84.7468 72.475 84.7468 72.271V67.393L82.8748 72.28H82.2628L80.3818 67.393V72.271C80.3818 72.475 80.3908 72.598 80.4088 72.64C80.4268 72.676 80.4838 72.7 80.5798 72.712L81.0748 72.766V73H79.3558V72.766L79.8508 72.712C79.9468 72.7 80.0038 72.676 80.0218 72.64C80.0398 72.598 80.0488 72.475 80.0488 72.271V67.609C80.0488 67.405 80.0398 67.285 80.0218 67.249C80.0038 67.207 79.9468 67.18 79.8508 67.168L79.3558 67.123V66.88H81.0028L82.8118 71.605L84.6208 66.88H86.2228V67.123L85.7278 67.168C85.6318 67.18 85.5748 67.207 85.5568 67.249C85.5388 67.285 85.5298 67.405 85.5298 67.609V72.271C85.5298 72.475 85.5388 72.598 85.5568 72.64C85.5748 72.676 85.6318 72.7 85.7278 72.712L86.2228 72.766Z"
+                                        fill="#3A3A3A" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="chat-messages hidden" id="chat-messages"></div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <textarea class="chat-input"
+                                placeholder="Напишите сообщение..." rows="1"
+                                id="chat-input"></textarea>
+                            <div class="input-options">
+                                <button class="option-btn"
+                                    title="Прикрепить файл">
+                                    <svg width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"
+                                            stroke="#D9D9D9" stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <button class="option-btn" title="Сканер">
+                                    <svg width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 7V5a2 2 0 0 1 2-2h2"
+                                            stroke="#D9D9D9" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <path d="M17 3h2a2 2 0 0 1 2 2v2"
+                                            stroke="#D9D9D9" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <path d="M21 17v2a2 2 0 0 1-2 2h-2"
+                                            stroke="#D9D9D9" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <path d="M7 21H5a2 2 0 0 1-2-2v-2"
+                                            stroke="#D9D9D9" stroke-width="2"
+                                            stroke-linecap="round" />
+                                        <rect x="7" y="7" width="10" height="10"
+                                            rx="1" stroke="#D9D9D9"
+                                            stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <button class="option-btn" title="Фото">
+                                    <svg width="20" height="20"
+                                        viewBox="0 0 27 22" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="1" y="1" width="25" height="18"
+                                            rx="3" stroke="#D9D9D9"
+                                            stroke-width="2" />
+                                        <circle cx="9" cy="7" r="2"
+                                            fill="#D9D9D9" />
+                                        <path d="M1 13L7 9L13 13L19 9L26 13"
+                                            stroke="#D9D9D9" stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <button class="send-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.5 9.54596C0.671573 9.54596 0 10.2175 0 11.046C0 11.8744 0.671573 12.546 1.5 12.546L1.5 11.046L1.5 9.54596ZM20.5607 12.1066C21.1464 11.5208 21.1464 10.5711 20.5607 9.9853L11.0147 0.439358C10.4289 -0.146429 9.47918 -0.146429 8.8934 0.439358C8.30761 1.02514 8.30761 1.97489 8.8934 2.56068L17.3787 11.046L8.8934 19.5312C8.30761 20.117 8.30761 21.0668 8.8934 21.6526C9.47918 22.2383 10.4289 22.2383 11.0147 21.6526L20.5607 12.1066ZM1.5 11.046L1.5 12.546L19.5 12.546V11.046V9.54596L1.5 9.54596L1.5 11.046Z"
+                                        fill="#D9D9D9" fill-opacity="0.56" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Login Modal -->
+        <div class="modal-overlay hidden" id="login-modal">
+            <div class="modal-container">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <div class="modal-content">
+                    <h2 class="modal-title">Login or Create Account</h2>
+                    <p class="modal-subtitle">Your current chat history will be
+                        saved to your new account so you can access your chat
+                        from any device.</p>
+
+                    <div class="modal-input-wrapper">
+                        <input type="email" class="modal-input" placeholder="Your email" id="email-input">
+                    </div>
+                    <div class="modal-input-wrapper">
+                        <input type="password" class="modal-input" placeholder="Create password" id="password-input">
+                    </div>
+
+                    <button class="modal-btn" id="register-btn">Register</button>
+
+                    <p class="modal-footer">
+                        By signing up for this service, you agree to the<br>
+                        <a href="#" class="modal-link">Terms</a> and have read
+                        our<br>
+                        <a href="#" class="modal-link">Privacy Policy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Modal -->
+        <div class="modal-overlay hidden" id="profile-modal">
+            <div class="profile-modal-container">
+                <button class="modal-close" id="profile-modal-close">&times;</button>
+                
+                <div class="profile-header">
+                    <div class="profile-avatar-large">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" 
+                            xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" stroke="#D9D9D9" stroke-width="2"/>
+                            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="#D9D9D9" stroke-width="2" 
+                                stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile-email" id="profile-modal-email"></div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="profile-btn sign-out-btn" id="sign-out-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" 
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" 
+                                stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" 
+                                stroke-linejoin="round"/>
+                            <polyline points="16 17 21 12 16 7" stroke="#1a1a1a" 
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="21" y1="12" x2="9" y2="12" stroke="#1a1a1a" 
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Sign out
+                    </button>
+                    
+                    <button class="profile-btn delete-account-btn" id="delete-account-btn">
+                        Delete an account
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Account Confirmation Modal -->
+        <div class="modal-overlay hidden" id="delete-confirm-modal">
+            <div class="modal-container">
+                <button class="modal-close" id="delete-confirm-close">&times;</button>
+                <div class="modal-content">
+                    <h2 class="modal-title">Delete Account</h2>
+                    <p class="modal-subtitle">Are you sure you want to delete your account? 
+                        This action cannot be undone and all your data will be permanently removed.</p>
+                    
+                    <div class="delete-confirm-actions">
+                        <button class="modal-btn cancel-btn" id="cancel-delete-btn">Cancel</button>
+                        <button class="modal-btn delete-confirm-btn" id="confirm-delete-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="/client/scripts/main.js"></script>
+</html>
