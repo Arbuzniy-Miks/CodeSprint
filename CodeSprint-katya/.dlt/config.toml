@@ -1,0 +1,5 @@
+[runtime]
+log_level = "INFO"
+
+[destination.postgres]
+dataset_name = "document_analytics"

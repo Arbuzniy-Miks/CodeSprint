@@ -1,0 +1,200 @@
+version: '3.8'
+
+services:
+  # PostgreSQL с расширением pgvector для векторного поиска
+  postgres:
+    image: ankane/pgvector:latest  # Образ с предустановленным pgvector
+    container_name: doc_analyzer_db
+    environment:
+      # Основные параметры подключения
+      POSTGRES_DB: document_analytics
+      POSTGRES_USER: analyzer
+      POSTGRES_PASSWORD: secure_password_123
+      
+      # Дополнительные настройки PostgreSQL
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+      TZ: 'Europe/Moscow'
+      
+      # Настройки производительности
+      POSTGRES_CONFIG: |
+        shared_buffers = 256MB
+        effective_cache_size = 768MB
+        maintenance_work_mem = 64MB
+        checkpoint_completion_target = 0.9
+        wal_buffers = 16MB
+        default_statistics_target = 100
+        random_page_cost = 1.1
+        effective_io_concurrency = 200
+        work_mem = 8MB
+        min_wal_size = 1GB
+        max_wal_size = 4GB
+        max_worker_processes = 8
+        max_parallel_workers_per_gather = 4
+        max_parallel_workers = 8
+        max_parallel_maintenance_workers = 4
+        
+    ports:
+      - "5432:5432"  # Стандартный порт PostgreSQL
+    
+    volumes:
+      # Постоянное хранилище данных
+      - postgres_data:/var/lib/postgresql/data
+      
+      # Скрипты инициализации (будут выполнены при первом запуске)
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      
+      # Бэкапы
+      - ./backups:/backups
+      
+    networks:
+      - doc_analyzer_network
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analyzer -d document_analytics"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Ограничение ресурсов
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 256M
+
+  # pgAdmin - веб-интерфейс для управления PostgreSQL (опционально)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: doc_analyzer_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin_password_123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"  # Веб-интерфейс будет доступен на порту 5050
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - doc_analyzer_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Redis для кэширования (опционально, для улучшения производительности)
+  redis:
+    image: redis:7-alpine
+    container_name: doc_analyzer_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - doc_analyzer_network
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Ваше веб-приложение (пример)
+  web:
+    build: .
+    container_name: doc_analyzer_web
+    environment:
+      # Подключение к PostgreSQL
+      DESTINATION__POSTGRES__CREDENTIALS__DATABASE: document_analytics
+      DESTINATION__POSTGRES__CREDENTIALS__USERNAME: analyzer
+      DESTINATION__POSTGRES__CREDENTIALS__PASSWORD: secure_password_123
+      DESTINATION__POSTGRES__CREDENTIALS__HOST: postgres
+      DESTINATION__POSTGRES__CREDENTIALS__PORT: 5432
+      DESTINATION__POSTGRES__CREDENTIALS__SSLMODE: disable
+      
+      # Подключение к Redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      
+      # API ключи
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      
+      # Настройки приложения
+      FLASK_ENV: production
+      FLASK_APP: web_interface.py
+      DEBUG: "false"
+      
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    networks:
+      - doc_analyzer_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: python web_interface.py
+
+  # Резервное копирование (опционально)
+  backup:
+    image: prodrigestivill/postgres-backup-local:latest
+    container_name: doc_analyzer_backup
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: document_analytics
+      POSTGRES_USER: analyzer
+      POSTGRES_PASSWORD: secure_password_123
+      POSTGRES_EXTRA_OPTS: "--clean --if-exists"
+      SCHEDULE: "@daily"  # Ежедневный бэкап в 2 часа ночи
+      BACKUP_DIR: /backups
+      BACKUP_SUFFIX: .sql.gz
+      BACKUP_KEEP_DAYS: 7  # Хранить неделю
+      BACKUP_KEEP_WEEKS: 4  # И месяц
+      BACKUP_KEEP_MONTHS: 3  # И три месяца
+    volumes:
+      - ./backups:/backups
+    networks:
+      - doc_analyzer_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  doc_analyzer_network:
+    driver: bridge
+    name: doc_analyzer_network
+
+volumes:
+  postgres_data:
+    name: doc_analyzer_postgres_data
+  pgadmin_data:
+    name: doc_analyzer_pgadmin_data
+  redis_data:
+    name: doc_analyzer_redis_data
