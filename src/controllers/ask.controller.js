@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-
+const FOLDER_ID = process.env.YANDEX_FOLDER_ID;
+const API_KEY   = process.env.YANDEX_API_KEY;
 const askQuestion = async (req, res, next) => {
   try {
     const { question, documentId, documentIds } = req.body;
