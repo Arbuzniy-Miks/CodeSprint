@@ -1,2 +1,0 @@
-# CodeSprint
-# project Undefined team

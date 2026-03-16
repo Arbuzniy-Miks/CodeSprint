@@ -8,13 +8,11 @@ const uploadDocument = async (req, res, next) => {
       throw new AppError('Файл не был загружен', 400);
     }
 
-    // Обрабатываем файл: OCR / PDF / DOCX → extractedText
     const document = await documentService.processUploadedFile(req.file);
 
-    // Если текст извлечён — индексируем для поиска
     if (document.extractedText && document.extractedText.trim()) {
       retrievalService.indexDocument(document.extractedText, document.id);
-      console.log(`✅ Документ ${document.id} проиндексирован`);
+      console.log(`Документ ${document.id} проиндексирован`);
     }
 
     res.status(201).json({

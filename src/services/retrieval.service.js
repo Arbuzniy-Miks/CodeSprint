@@ -1,17 +1,13 @@
 const chunkService = require('./chunk.service');
 
-/**
- * Сервис для поиска релевантных chunks
- */
 class RetrievalService {
   constructor() {
     this.chunks = [];
   }
 
   /**
-   * Индексировать текст
-   * @param {string} text - Исходный текст
-   * @param {string} documentId - ID документа
+   * @param {string} text
+   * @param {string} documentId
    */
   indexDocument(text, documentId) {
     const chunks = chunkService.splitIntoChunks(text);
@@ -26,10 +22,9 @@ class RetrievalService {
   }
 
   /**
-   * Найти релевантные chunks по запросу
-   * @param {string} query - Поисковый запрос
-   * @param {number} topK - Количество результатов
-   * @returns {Array} - Массив релевантных chunks
+   * @param {string} query
+   * @param {number} topK
+   * @returns {Array}
    */
   retrieveRelevantChunks(query, topK = 3) {
     if (!this.chunks.length) {
@@ -42,7 +37,6 @@ class RetrievalService {
       .split(/\s+/)
       .filter(word => word.length > 2);
 
-    // Простой поиск по ключевым словам
     const scoredChunks = this.chunks.map(chunk => {
       const chunkLower = chunk.text.toLowerCase();
       let score = 0;
@@ -50,7 +44,6 @@ class RetrievalService {
       for (const keyword of keywords) {
         if (chunkLower.includes(keyword)) {
           score += 1;
-          // Больше вес за точное совпадение
           if (chunkLower.includes(` ${keyword} `)) {
             score += 1;
           }
@@ -63,16 +56,12 @@ class RetrievalService {
       };
     });
 
-    // Сортируем по убыванию score и берем topK
     return scoredChunks
       .filter(chunk => chunk.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, topK);
   }
 
-  /**
-   * Очистить индекс
-   */
   clear() {
     this.chunks = [];
   }

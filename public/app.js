@@ -1,5 +1,4 @@
 console.log('DocMind app.js loaded');
-// ========== STATE ==========
 let chatSessions     = [];
 let currentSessionId = null;
 let attachedFiles    = [];
@@ -8,7 +7,6 @@ let authToken        = localStorage.getItem('docmind_token') || null;
 let currentUser      = null;
 const MAX_FILES      = 5;
 const TEMP_TEXTS     = ['Обрабатываю...', 'Думаю...', 'Загружаю'];
-// ========== DOM ==========
 const chatInput          = document.getElementById('chat-input');
 const sendBtn            = document.getElementById('send-btn') || document.querySelector('.send-btn');
 const chatMessages       = document.getElementById('chat-messages');
@@ -50,7 +48,6 @@ const toastEl            = document.getElementById('toast');
 const fileUploadInput    = document.getElementById('file-upload-input');
 const cameraInput        = document.getElementById('camera-input');
 const galleryInput       = document.getElementById('gallery-input');
-// ========== TOAST ==========
 function showToast(msg, type = 'default', duration = 3000) {
     if (!toastEl) return;
     toastEl.textContent = msg;
@@ -58,7 +55,6 @@ function showToast(msg, type = 'default', duration = 3000) {
     clearTimeout(toastEl._timer);
     toastEl._timer = setTimeout(() => { toastEl.className = 'toast'; }, duration);
 }
-// ========== AUTH MESSAGE ==========
 function setMessage(el, text, type) {
     if (!el) return;
     el.textContent = text;
@@ -69,14 +65,12 @@ function clearMessage(el) {
     el.textContent = '';
     el.className = 'auth-message';
 }
-// ========== API HELPERS ==========
 function authHeaders() {
     return authToken ? { 'Authorization': 'Bearer ' + authToken } : {};
 }
 function authJsonHeaders() {
     return { 'Content-Type': 'application/json', ...authHeaders() };
 }
-// ========== HEALTH ==========
 async function checkHealth() {
     if (!backendStatus) return;
     try {
@@ -86,7 +80,6 @@ async function checkHealth() {
         backendStatus.innerHTML = '<span style="color:#ff4444;">● Offline</span>';
     }
 }
-// ========== AUTH API ==========
 async function apiRegister(email, password) {
     const res = await fetch('/api/auth/register', {
         method: 'POST',
@@ -118,7 +111,6 @@ async function apiDeleteAccount() {
         return res.ok;
     } catch { return false; }
 }
-// ========== CHAT API ==========
 async function apiLoadSessions() {
     try {
         const res = await fetch('/api/chat/sessions', { headers: authHeaders() });
@@ -160,7 +152,6 @@ async function apiDeleteSession(sessionId) {
         await fetch('/api/chat/sessions/' + sessionId, { method: 'DELETE', headers: authHeaders() });
     } catch {}
 }
-// ========== UPLOAD & DOCS API ==========
 async function uploadFileToBackend(file) {
     const formData = new FormData();
     formData.append('file', file);
@@ -179,7 +170,6 @@ async function loadDocumentsFromBackend() {
         return Array.isArray(data) ? data : (data.data || data.documents || []);
     } catch { return []; }
 }
-// ========== AUTH STATE ==========
 function setLoggedIn(user, token) {
     authToken = token;
     currentUser = user;
@@ -221,7 +211,6 @@ async function loadSessionsFromDB() {
         dbId: s.id,
         title: s.title,
         messages: (s.messages || [])
-            // Фильтруем временные сообщения которые могли попасть в БД раньше
             .filter(m => !TEMP_TEXTS.some(t => m.text.startsWith(t)))
             .map(m => ({
                 id: m.id,
@@ -234,13 +223,11 @@ async function loadSessionsFromDB() {
     }));
     updateHistorySidebar();
 }
-// ========== FILE UTILS ==========
 function formatSize(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
 }
-// ========== ATTACHED FILES ==========
 function renderAttachedFiles() {
     const info = document.getElementById('attached-file-info');
     if (!info) return;
@@ -306,7 +293,6 @@ function addFilesToList(files) {
     }
     if (added > 0) renderAttachedFiles();
 }
-// ========== FILE INPUTS ==========
 const attachBtnEl = document.getElementById('attach-btn');
 if (attachBtnEl && fileUploadInput) {
     fileUploadInput.multiple = true;
@@ -328,20 +314,17 @@ if (photoBtnEl && galleryInput) {
     galleryInput.addEventListener('change', e => addFilesToList(e.target.files));
 }
 if (removeAttachedEl) removeAttachedEl.addEventListener('click', clearAttachedFiles);
-// ========== TEMP AI MESSAGE (только DOM, не в сессию и не в БД) ==========
 function addTempAiMessage(text) {
     if (!chatMessages) return;
     const message = { id: 'temp_' + Date.now(), sender: 'ai', text, time: new Date() };
     renderMessage(message);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-// ========== REMOVE LAST AI MESSAGE (только из DOM) ==========
 function removeLastAiMessage() {
     if (!chatMessages) return;
     const msgs = chatMessages.querySelectorAll('.message.ai');
     if (msgs.length) msgs[msgs.length - 1].remove();
 }
-// ========== АВТОЗАГРУЗКА С КАМЕРЫ ==========
 async function autoUploadFromCamera(file) {
     attachedFiles = attachedFiles.filter(f => !(f.name === file.name && f.size === file.size));
     renderAttachedFiles();
@@ -366,7 +349,6 @@ async function autoUploadFromCamera(file) {
         await addMessageToSession('ai', '❌ Ошибка: ' + (result.data?.error || result.error || 'неизвестная'));
     }
 }
-// ========== SEND MESSAGE ==========
 async function sendMessage() {
     const files    = [...attachedFiles];
     const text     = chatInput ? chatInput.value.trim() : '';
@@ -375,7 +357,6 @@ async function sendMessage() {
     if (welcomeScreen) welcomeScreen.classList.add('hidden');
     if (documentsList) documentsList.classList.add('hidden');
     if (chatMessages)  chatMessages.classList.remove('hidden');
-    // Сразу очищаем инпут и теги
     if (chatInput) { chatInput.value = ''; chatInput.style.height = 'auto'; }
     attachedFiles = [];
     renderAttachedFiles();
@@ -383,18 +364,15 @@ async function sendMessage() {
     if (cameraInput)     cameraInput.value = '';
     if (galleryInput)    galleryInput.value = '';
     if (hasFiles) {
-        // Одно сообщение: текст + имена файлов
         const fileNames = files.map(f => '(' + f.name + ')').join(', ');
         const userText  = text ? text + '\n' + fileNames : fileNames;
         await addMessageToSession('user', userText);
-        // Показываем временное сообщение (не сохраняется)
         addTempAiMessage('Обрабатываю...');
         const newIds = [];
         for (const file of files) {
             const result = await uploadFileToBackend(file);
             if (result.success && result.data.id) newIds.push(result.data.id);
         }
-        // Убираем временное сообщение из DOM
         removeLastAiMessage();
         if (!newIds.length) {
             await addMessageToSession('ai', '❌ Не удалось загрузить файлы.');
@@ -415,9 +393,7 @@ async function sendMessage() {
         await askYandex(text, lastDocumentIds);
     }
 }
-// ========== ВОПРОС К ЯНДЕКСУ ==========
 async function askYandex(question, docIds) {
-    // Временное сообщение — только в DOM, не в сессию
     addTempAiMessage('Думаю...');
     try {
         const body = { question };
@@ -432,7 +408,6 @@ async function askYandex(question, docIds) {
             headers: authJsonHeaders(),
             body: JSON.stringify(body)
         });
-        // Убираем "Думаю..." из DOM
         removeLastAiMessage();
         if (res.ok) {
             const data = await res.json();
@@ -447,7 +422,6 @@ async function askYandex(question, docIds) {
         await addMessageToSession('ai', '❌ Ошибка сети: сервер не отвечает.');
     }
 }
-// ========== SESSIONS ==========
 async function createNewSession(firstMessage) {
     const title = firstMessage.substring(0, 40) + (firstMessage.length > 40 ? '...' : '');
     const session = {
@@ -480,7 +454,6 @@ async function addMessageToSession(sender, text) {
         session.title = text.substring(0, 40) + (text.length > 40 ? '...' : '');
         if (session.dbId) apiUpdateSessionTitle(session.dbId, session.title);
     }
-    // Не сохраняем временные сообщения в БД
     const isTemp = TEMP_TEXTS.some(t => text.startsWith(t));
     if (session.dbId && authToken && !isTemp) {
         await apiSaveMessage(session.dbId, sender, text);
@@ -506,7 +479,7 @@ function loadSession(sessionId) {
     }
     if (chatInput) chatInput.focus();
 }
-// ========== RENDER MESSAGE ==========
+
 function renderMessage(message) {
     if (!chatMessages) return;
     const div = document.createElement('div');
@@ -556,7 +529,7 @@ function escapeHtml(text) {
     d.textContent = text;
     return d.innerHTML.replace(/\n/g, '<br>');
 }
-// ========== HISTORY SIDEBAR ==========
+
 function updateHistorySidebar() {
     const today    = new Date(); today.setHours(0, 0, 0, 0);
     const weekAgo  = new Date(today.getTime() - 7  * 86400000);
@@ -604,7 +577,7 @@ function renderHistorySection(container, items) {
         container.appendChild(wrap);
     });
 }
-// ========== MODAL TABS ==========
+
 document.querySelectorAll('.modal-tab').forEach(tab => {
     tab.addEventListener('click', () => {
         document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
@@ -616,7 +589,7 @@ document.querySelectorAll('.modal-tab').forEach(tab => {
         clearMessage(loginMessage);
     });
 });
-// ========== REGISTER ==========
+
 if (registerBtn) {
     registerBtn.addEventListener('click', async () => {
         const email = regEmail.value.trim();
@@ -633,7 +606,7 @@ if (registerBtn) {
         registerBtn.disabled = false;
         registerBtn.textContent = 'Register';
         if (result.ok) {
-            setMessage(regMessage, '✅ Аккаунт создан!', 'success');
+            setMessage(regMessage, 'Аккаунт создан!', 'success');
             setLoggedIn(result.data.user, result.data.token);
             await loadSessionsFromDB();
             setTimeout(() => {
@@ -643,7 +616,7 @@ if (registerBtn) {
             }, 800);
         } else {
             const msg = result.data.error || 'Ошибка регистрации';
-            setMessage(regMessage, '❌ ' + msg + (result.status === 409 ? ' — войдите во вкладке "Login"' : ''), 'error');
+            setMessage(regMessage, '' + msg + (result.status === 409 ? ' — войдите во вкладке "Login"' : ''), 'error');
         }
     });
 }
@@ -656,7 +629,7 @@ function resetRegForm() {
 if (regEmail)     regEmail.addEventListener('keydown',     e => { if (e.key === 'Enter') regPassword.focus(); });
 if (regPassword)  regPassword.addEventListener('keydown',  e => { if (e.key === 'Enter') regPassword2.focus(); });
 if (regPassword2) regPassword2.addEventListener('keydown', e => { if (e.key === 'Enter') registerBtn.click(); });
-// ========== LOGIN ==========
+
 if (loginSubmitBtn) {
     loginSubmitBtn.addEventListener('click', async () => {
         const email = loginEmail.value.trim();
@@ -669,7 +642,7 @@ if (loginSubmitBtn) {
         loginSubmitBtn.disabled = false;
         loginSubmitBtn.textContent = 'Login';
         if (result.ok) {
-            setMessage(loginMessage, '✅ Вход выполнен!', 'success');
+            setMessage(loginMessage, 'Вход выполнен!', 'success');
             setLoggedIn(result.data.user, result.data.token);
             await loadSessionsFromDB();
             setTimeout(() => {
@@ -680,13 +653,13 @@ if (loginSubmitBtn) {
                 showToast('Добро пожаловать, ' + result.data.user.email + '!', 'success');
             }, 600);
         } else {
-            setMessage(loginMessage, '❌ ' + (result.data.error || 'Неверный email или пароль'), 'error');
+            setMessage(loginMessage, '' + (result.data.error || 'Неверный email или пароль'), 'error');
         }
     });
 }
 if (loginEmail)    loginEmail.addEventListener('keydown',    e => { if (e.key === 'Enter') loginPassword.focus(); });
 if (loginPassword) loginPassword.addEventListener('keydown', e => { if (e.key === 'Enter') loginSubmitBtn.click(); });
-// ========== OPEN/CLOSE MODAL ==========
+
 if (loginBtn) {
     loginBtn.addEventListener('click', () => {
         loginModal.classList.remove('hidden');
@@ -701,7 +674,7 @@ if (loginBtn) {
 }
 if (modalClose) modalClose.addEventListener('click', () => loginModal.classList.add('hidden'));
 if (loginModal)  loginModal.addEventListener('click', e => { if (e.target === loginModal) loginModal.classList.add('hidden'); });
-// ========== PROFILE MODAL ==========
+
 if (userProfile) {
     userProfile.addEventListener('click', () => {
         if (!currentUser) return;
@@ -725,7 +698,7 @@ if (signOutBtn) {
         showToast('Вы вышли из аккаунта');
     });
 }
-// ========== DELETE ACCOUNT ==========
+
 if (deleteAccountBtn) deleteAccountBtn.addEventListener('click', () => { profileModal.classList.add('hidden'); deleteConfirmModal.classList.remove('hidden'); });
 if (deleteConfirmClose) deleteConfirmClose.addEventListener('click', () => deleteConfirmModal.classList.add('hidden'));
 if (cancelDeleteBtn)    cancelDeleteBtn.addEventListener('click',    () => deleteConfirmModal.classList.add('hidden'));
@@ -753,7 +726,7 @@ if (confirmDeleteBtn) {
         }
     });
 }
-// ========== ESCAPE ==========
+
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
         if (loginModal)         loginModal.classList.add('hidden');
@@ -761,7 +734,7 @@ document.addEventListener('keydown', e => {
         if (deleteConfirmModal) deleteConfirmModal.classList.add('hidden');
     }
 });
-// ========== TEXTAREA AUTO-RESIZE ==========
+
 if (chatInput) {
     chatInput.addEventListener('input', function () {
         this.style.height = 'auto';
@@ -769,7 +742,7 @@ if (chatInput) {
         this.style.overflowY = this.scrollHeight > 200 ? 'auto' : 'hidden';
     });
 }
-// ========== NAV ==========
+
 if (navNewDoc) {
     navNewDoc.addEventListener('click', () => {
         currentSessionId = null; lastDocumentIds = [];
@@ -858,7 +831,6 @@ if (navSearch) {
             .catch(() => addMessageToSession('ai', 'Поиск пока не реализован.'));
     });
 }
-// ========== SEND ==========
 if (sendBtn) sendBtn.addEventListener('click', sendMessage);
 if (chatInput) {
     chatInput.addEventListener('keydown', e => {
@@ -868,7 +840,6 @@ if (chatInput) {
         }
     });
 }
-// ========== INIT ==========
 checkHealth();
 setInterval(checkHealth, 30000);
 restoreSession();

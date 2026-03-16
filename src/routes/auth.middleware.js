@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'docmind-secret-key-change-in-production';
 
-// Обязательная авторизация
 function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -20,7 +19,7 @@ function requireAuth(req, res, next) {
   }
 }
 
-// Опциональная — если токен есть, достаём userId, если нет — пропускаем
+
 function optionalAuth(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) {

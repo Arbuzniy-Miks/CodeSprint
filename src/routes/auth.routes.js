@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'docmind-secret-key-change-in-production';
 
-// Регистрация
+
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
 
@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
   });
 });
 
-// Вход
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
   });
 });
 
-// Текущий пользователь
+
 router.get('/me', async (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -96,7 +96,7 @@ router.get('/me', async (req, res) => {
   }
 });
 
-// Удаление аккаунта
+
 router.delete('/account', async (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {

@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'docmind-secret-key-change-in-production';
 
-// Встроенная авторизация
+
 function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ error: 'Требуется авторизация' });
@@ -21,7 +21,7 @@ function requireAuth(req, res, next) {
   }
 }
 
-// Получить все сессии пользователя
+
 router.get('/sessions', requireAuth, async (req, res) => {
   try {
     const sessions = await prisma.chatSession.findMany({
@@ -35,7 +35,7 @@ router.get('/sessions', requireAuth, async (req, res) => {
   }
 });
 
-// Создать сессию
+
 router.post('/sessions', requireAuth, async (req, res) => {
   try {
     const { title } = req.body;
@@ -48,14 +48,13 @@ router.post('/sessions', requireAuth, async (req, res) => {
   }
 });
 
-// Добавить сообщение в сессию
+
 router.post('/sessions/:id/messages', requireAuth, async (req, res) => {
   try {
     const { sender, text } = req.body;
     const message = await prisma.chatMessage.create({
       data: { sessionId: req.params.id, sender, text }
     });
-    // Обновить updatedAt сессии
     await prisma.chatSession.update({
       where: { id: req.params.id },
       data: { updatedAt: new Date() }
@@ -66,7 +65,6 @@ router.post('/sessions/:id/messages', requireAuth, async (req, res) => {
   }
 });
 
-// Обновить заголовок сессии
 router.patch('/sessions/:id', requireAuth, async (req, res) => {
   try {
     const { title } = req.body;
@@ -80,7 +78,6 @@ router.patch('/sessions/:id', requireAuth, async (req, res) => {
   }
 });
 
-// Удалить сессию
 router.delete('/sessions/:id', requireAuth, async (req, res) => {
   try {
     await prisma.chatSession.delete({ where: { id: req.params.id } });

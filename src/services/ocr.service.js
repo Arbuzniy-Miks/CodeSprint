@@ -4,7 +4,6 @@ const path = require('path');
 const fs = require('fs');
 
 async function extractTextFromImage(filePath) {
-    // Предобработка — увеличиваем резкость и контраст
     const processedPath = filePath + '_processed.png';
     
     try {
@@ -28,10 +27,9 @@ async function extractTextFromImage(filePath) {
         }
     });
 
-    // Удаляем временный файл
     if (fs.existsSync(processedPath)) fs.unlinkSync(processedPath);
 
-    console.log(''); // новая строка после прогресса
+    console.log('');
     return result.data.text ? result.data.text.trim() : '';
 }
 

@@ -9,17 +9,16 @@ from advanced_document_analyzer import AdvancedDocumentAnalyzer
 
 load_dotenv()
 
-print("🚀 ТЕСТ С ЗАДЕРЖКОЙ (чтобы не превышать лимиты)")
+print("ТЕСТ С ЗАДЕРЖКОЙ (чтобы не превышать лимиты)")
 print("="*60)
 
 api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
-    print("❌ Нет API ключа")
+    print("Нет API ключа")
     exit(1)
 
 analyzer = AdvancedDocumentAnalyzer(api_key)
 
-# Тестовые тексты
 test_texts = [
     ("Сегодня хорошая погода. Я иду гулять в парк.", "О чем текст?"),
     ("В современном мире цифровые технологии играют ключевую роль.", "Это AI?"),
@@ -27,7 +26,7 @@ test_texts = [
 ]
 
 for i, (text, question) in enumerate(test_texts, 1):
-    print(f"\n📝 ТЕСТ {i}")
+    print(f"\nТЕСТ {i}")
     print("-"*40)
     
     try:
@@ -37,15 +36,15 @@ for i, (text, question) in enumerate(test_texts, 1):
             query=question
         )
         
-        print(f"✅ Успешно!")
-        print(f"   🤖 Вероятность AI: {result['ai_detection'].get('ai_probability', 'N/A')}%")
-        print(f"   📝 Оригинальность: {result['originality_analysis'].get('originality_score', 'N/A')}/100")
+        print(f"Успешно!")
+        print(f"Вероятность AI: {result['ai_detection'].get('ai_probability', 'N/A')}%")
+        print(f"Оригинальность: {result['originality_analysis'].get('originality_score', 'N/A')}/100")
         
     except Exception as e:
-        print(f"❌ Ошибка: {e}")
+        print(f"Ошибка: {e}")
     
     if i < len(test_texts):
-        print(f"\n⏳ Ждем 5 секунд перед следующим запросом...")
-        time.sleep(5)  # Задержка 5 секунд
+        print(f"\nЖдем 5 секунд перед следующим запросом...")
+        time.sleep(5)
 
 print("\n✨ ТЕСТ ЗАВЕРШЕН")

@@ -13,7 +13,6 @@ async function processUploadedFile(file) {
   try {
     if (file.mimetype === 'application/pdf') {
       extractedText = await pdfService.extractTextFromPdf(file.path);
-      // OCR для PDF не применяем — Tesseract не читает PDF
       if (!extractedText || extractedText.trim().length < 10) {
           console.log('PDF без текстового слоя — скан без OCR поддержки');
           extractedText = '';

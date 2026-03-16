@@ -8,7 +8,6 @@ const askQuestion = async (req, res, next) => {
     if (!question) {
       return res.status(400).json({ success: false, message: 'Вопрос обязателен' });
     }
-    // Собираем все ID в один массив (поддержка и одного и нескольких)
     const ids = [];
     if (Array.isArray(documentIds) && documentIds.length) {
       ids.push(...documentIds);
@@ -18,14 +17,12 @@ const askQuestion = async (req, res, next) => {
     if (!ids.length) {
       return res.status(400).json({ success: false, message: 'Не передан ID документа' });
     }
-    // Загружаем все документы и объединяем тексты
     const docs = await prisma.document.findMany({
       where: { id: { in: ids } }
     });
     if (!docs.length) {
       return res.status(404).json({ success: false, message: 'Документы не найдены' });
     }
-    // Собираем текст из всех документов
     let combinedText = '';
     const foundNames = [];
     for (const doc of docs) {
@@ -37,7 +34,6 @@ const askQuestion = async (req, res, next) => {
     if (!combinedText.trim()) {
       return res.status(404).json({ success: false, message: 'Текст из документов не удалось извлечь' });
     }
-    // Ограничиваем размер — YandexGPT имеет лимит токенов
     const trimmedText = combinedText.substring(0, 15000);
     const docsLabel = foundNames.length === 1
       ? `документа "${foundNames[0]}"`
@@ -69,12 +65,11 @@ ${trimmedText}`;
     });
     if (!response.ok) {
       const err = await response.text();
-      console.error("❌ Ошибка от Яндекса:", err);
+      console.error("Ошибка от Яндекса:", err);
       throw new Error("Яндекс отклонил запрос");
     }
     const data = await response.json();
     const answer = data.result.alternatives[0].message.text;
-    // Сохраняем Q&A для каждого документа
     for (const doc of docs) {
       try {
         await prisma.questionAnswer.create({
@@ -98,7 +93,7 @@ ${trimmedText}`;
       }
     });
   } catch (error) {
-    console.error("❌ Критическая ошибка YandexGPT:", error);
+    console.error("Критическая ошибка YandexGPT:", error);
     res.status(500).json({ success: false, message: 'Ошибка при обращении к нейросети Яндекса' });
   }
 };

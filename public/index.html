@@ -173,11 +173,9 @@
                     </div>
                 </div>
             </aside>
-            <!-- Оверлей для мобильного сайдбара -->
             <div class="sidebar-overlay" id="sidebar-overlay"></div>
             <main class="main-content">
                 <header class="main-header">
-                    <!-- Бургер — только на мобиле -->
                     <button class="burger-btn" id="burger-btn" aria-label="Меню">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                             <line x1="3" y1="6"  x2="21" y2="6"  stroke="#e0e0e0" stroke-width="2" stroke-linecap="round"/>
@@ -239,7 +237,6 @@
                 </div>
             </main>
         </div>
-        <!-- AUTH MODAL -->
         <div class="modal-overlay hidden" id="login-modal">
             <div class="modal-container">
                 <button class="modal-close" id="modal-close">&times;</button>
@@ -280,7 +277,6 @@
                 </div>
             </div>
         </div>
-        <!-- Profile Modal -->
         <div class="modal-overlay hidden" id="profile-modal">
             <div class="profile-modal-container">
                 <button class="modal-close" id="profile-modal-close">&times;</button>
@@ -307,7 +303,6 @@
                 </div>
             </div>
         </div>
-        <!-- Delete Confirm Modal -->
         <div class="modal-overlay hidden" id="delete-confirm-modal">
             <div class="modal-container">
                 <button class="modal-close" id="delete-confirm-close">&times;</button>
@@ -352,7 +347,6 @@
                 document.addEventListener('keydown', e => {
                     if (e.key === 'Escape') closeSidebar();
                 });
-                // Свайп влево — закрыть сайдбар
                 let touchStartX = 0;
                 if (sidebar) {
                     sidebar.addEventListener('touchstart', e => {
@@ -362,7 +356,6 @@
                         if (e.changedTouches[0].clientX - touchStartX < -60) closeSidebar();
                     }, { passive: true });
                 }
-                // Свайп вправо от края — открыть сайдбар
                 document.addEventListener('touchstart', e => {
                     touchStartX = e.touches[0].clientX;
                 }, { passive: true });

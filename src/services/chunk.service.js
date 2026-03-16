@@ -3,10 +3,9 @@
  */
 class ChunkService {
   /**
-   * Разбить текст на chunks
-   * @param {string} text - Исходный текст
-   * @param {number} maxChunkSize - Максимальный размер chunk в символах
-   * @returns {Array<string>} - Массив chunks
+   @param {string} text
+   @param {number} maxChunkSize
+   @returns {Array<string>}
    */
   splitIntoChunks(text, maxChunkSize = 1000) {
     if (!text || text.length === 0) {
@@ -14,20 +13,17 @@ class ChunkService {
     }
 
     const chunks = [];
-    const paragraphs = text.split(/\n\s*\n/); // Разделяем по параграфам
+    const paragraphs = text.split(/\n\s*\n/);
     
     let currentChunk = '';
     
     for (const paragraph of paragraphs) {
-      // Если параграф сам по себе больше maxChunkSize, разбиваем его
       if (paragraph.length > maxChunkSize) {
-        // Если текущий chunk не пустой, добавляем его
         if (currentChunk) {
           chunks.push(currentChunk.trim());
           currentChunk = '';
         }
         
-        // Разбиваем большой параграф на предложения
         const sentences = paragraph.match(/[^.!?]+[.!?]+/g) || [paragraph];
         let tempChunk = '';
         
@@ -37,7 +33,6 @@ class ChunkService {
               chunks.push(tempChunk.trim());
               tempChunk = sentence;
             } else {
-              // Если предложение слишком большое, обрезаем
               chunks.push(sentence.substring(0, maxChunkSize));
             }
           } else {
@@ -49,7 +44,6 @@ class ChunkService {
           chunks.push(tempChunk.trim());
         }
       } else {
-        // Если добавление параграфа превышает лимит
         if ((currentChunk + '\n\n' + paragraph).length > maxChunkSize) {
           if (currentChunk) {
             chunks.push(currentChunk.trim());
@@ -65,7 +59,6 @@ class ChunkService {
       }
     }
     
-    // Добавляем последний chunk
     if (currentChunk) {
       chunks.push(currentChunk.trim());
     }
@@ -74,10 +67,9 @@ class ChunkService {
   }
 
   /**
-   * Получить chunks по индексам
-   * @param {Array<string>} chunks - Массив всех chunks
-   * @param {Array<number>} indices - Индексы нужных chunks
-   * @returns {Array<string>} - Массив выбранных chunks
+   * @param {Array<string>} chunks 
+   * @param {Array<number>} indices 
+   * @returns {Array<string>} 
    */
   getChunksByIndices(chunks, indices) {
     return indices

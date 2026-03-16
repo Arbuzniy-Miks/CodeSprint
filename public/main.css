@@ -17,7 +17,6 @@ body {
     height: 100vh;
     height: 100dvh;
 }
-/* ===== SIDEBAR ===== */
 .sidebar {
     width: 280px;
     background-color: #2d2d2d;
@@ -77,7 +76,6 @@ body {
     margin-bottom: 12px;
     font-weight: 400;
 }
-/* ===== HISTORY ITEM ===== */
 .history-item {
     padding: 10px 15px;
     background-color: #3a3a3a;
@@ -118,7 +116,6 @@ body {
 @media (hover: none) {
     .history-item-del { opacity: 0.5; }
 }
-/* ===== SIDEBAR FOOTER ===== */
 .sidebar-footer {
     display: flex;
     flex-direction: column;
@@ -132,7 +129,6 @@ body {
     font-size: 12px;
 }
 .sidebar-footer a:hover { color: #888; }
-/* ===== SIDEBAR OVERLAY ===== */
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -142,7 +138,6 @@ body {
     backdrop-filter: blur(2px);
 }
 .sidebar-overlay.active { display: block; }
-/* ===== BURGER ===== */
 .burger-btn {
     display: none;
     background: none;
@@ -156,7 +151,6 @@ body {
 }
 .burger-btn:hover { background: #3a3a3a; }
 .burger-btn svg { display: block; }
-/* ===== MAIN CONTENT ===== */
 .main-content {
     flex: 1;
     background-color: #1a1a1a;
@@ -185,7 +179,6 @@ body {
     white-space: nowrap;
 }
 .login-btn:hover { background-color: #c0c0c0; }
-/* ===== CHAT AREA ===== */
 .chat-container {
     flex: 1;
     display: flex;
@@ -219,7 +212,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-/* ===== CHAT MESSAGES ===== */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
@@ -229,7 +221,6 @@ body {
     gap: 16px;
     -webkit-overflow-scrolling: touch;
 }
-/* ===== MESSAGES ===== */
 .message {
     display: flex;
     gap: 10px;
@@ -314,7 +305,6 @@ body {
     color: #555;
     padding: 0 2px;
 }
-/* ===== COPY BUTTON ===== */
 .copy-btn {
     background: none;
     border: none;
@@ -333,7 +323,6 @@ body {
 @media (hover: none) {
     .copy-btn { opacity: 0.4; }
 }
-/* ===== CHAT INPUT ===== */
 .chat-input-container {
     max-width: 900px;
     margin: 0 auto;
@@ -400,13 +389,11 @@ body {
 }
 .send-btn:hover { background-color: #ffffff15; transform: scale(1.05); }
 .send-btn:active { transform: scale(0.95); }
-/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #4a4a4a; }
 .hidden { display: none !important; }
-/* ===== MODAL ===== */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -559,7 +546,6 @@ body {
     transition: color 0.2s;
 }
 .modal-link:hover { color: #e0e0e0; text-decoration: underline; }
-/* ===== USER PROFILE ===== */
 .user-profile {
     display: flex;
     align-items: center;
@@ -608,7 +594,6 @@ body {
 }
 .footer-links a:hover { color: #888; }
 .logged-in .main-header .login-btn { display: none; }
-/* ===== PROFILE MODAL ===== */
 .profile-modal-container {
     background-color: #2d2d2d;
     border-radius: 20px;
@@ -663,7 +648,6 @@ body {
     border: 1px solid #3a3a3a;
 }
 .delete-account-btn:hover { background-color: #ff44441a; border-color: #ff4444; }
-/* ===== DELETE CONFIRM ===== */
 .delete-confirm-actions {
     display: flex;
     gap: 12px;
@@ -674,7 +658,6 @@ body {
 .cancel-btn:hover { background-color: #4a4a4a !important; }
 .delete-confirm-btn { background-color: #ff4444 !important; color: white !important; }
 .delete-confirm-btn:hover { background-color: #ff3333 !important; }
-/* ===== DOC ASK BUTTON ===== */
 .doc-ask-btn {
     display: inline-block;
     margin-top: 8px;
@@ -688,7 +671,6 @@ body {
     transition: background-color 0.2s, border-color 0.2s;
 }
 .doc-ask-btn:hover { background-color: #4a4a4a; border-color: #666; }
-/* ===== TOAST ===== */
 .toast {
     position: fixed;
     bottom: 24px;
@@ -711,7 +693,6 @@ body {
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.success { background-color: #1a3a2a; border: 1px solid #4ade80; color: #4ade80; }
 .toast.error   { background-color: #3a1a1a; border: 1px solid #ff4444; color: #ff4444; }
-/* ===== ATTACHED FILES ===== */
 #attached-file-info {
     display: none;
     flex-direction: row;
@@ -724,18 +705,12 @@ body {
     width: 100%;
 }
 #attached-file-info.file-visible { display: flex; }
-/* ================================================================
-   АДАПТИВ
-   ================================================================ */
-/* ===== TABLET (≤ 1024px) ===== */
 @media (max-width: 1024px) {
     .sidebar { width: 260px; }
     .main-logo { font-size: 52px; }
 }
-/* ===== MOBILE (≤ 768px) ===== */
 @media (max-width: 768px) {
     body { overflow: hidden; }
-    /* Сайдбар — выезжает поверх */
     .sidebar {
         position: fixed;
         top: 0; left: 0; bottom: 0;
@@ -745,18 +720,15 @@ body {
         padding: 20px 16px;
     }
     .sidebar.open { transform: translateX(0); }
-    /* Бургер виден */
     .burger-btn {
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    /* Хедер: бургер слева, кнопки справа */
     .main-header {
         justify-content: space-between;
         padding: 12px 16px;
     }
-    /* Welcome */
     .welcome-screen { padding: 24px 16px; }
     .title-wrapper {
         flex-direction: column;
@@ -765,7 +737,6 @@ body {
     }
     .main-logo { font-size: 40px; letter-spacing: 1px; }
     .folder-icon-large svg { width: 70px; height: auto; }
-    /* Сообщения */
     .chat-messages { padding: 12px; gap: 12px; }
     .message { gap: 8px; }
     .message-avatar {
@@ -779,7 +750,6 @@ body {
         font-size: 14px;
         padding: 9px 12px;
     }
-    /* Инпут */
     .chat-input-container { padding: 8px 10px 12px; }
     .input-wrapper {
         padding: 10px 12px;
@@ -800,7 +770,6 @@ body {
         border-radius: 10px;
     }
     .send-btn svg { width: 17px; height: 17px; }
-    /* Модал снизу */
     .modal-overlay {
         align-items: flex-end;
         padding: 0;
@@ -819,25 +788,20 @@ body {
         width: 100%;
     }
     .login-btn { padding: 8px 16px; font-size: 13px; }
-    /* Сайдбар компактнее */
     .sidebar-header { margin-bottom: 20px; }
     .sidebar-nav ul { margin-bottom: 20px; }
     .sidebar-nav li { padding: 14px 0; font-size: 15px; }
     .section h3 { font-size: 13px; }
     .history-item { font-size: 13px; padding: 10px 12px; }
-    /* Тост выше клавиатуры */
     .toast { bottom: 80px; }
-    /* Delete confirm вертикально */
     .delete-confirm-actions { flex-direction: column; }
 }
-/* ===== МАЛЕНЬКИЕ (≤ 380px) ===== */
 @media (max-width: 380px) {
     .main-logo { font-size: 34px; }
     .option-btn svg { width: 16px; height: 16px; }
     .option-btn { padding: 5px 4px; }
     .message-bubble { font-size: 13px; padding: 8px 11px; }
 }
-/* ===== LANDSCAPE на телефоне ===== */
 @media (max-width: 768px) and (orientation: landscape) {
     .welcome-screen { padding: 12px 16px; }
     .title-wrapper { flex-direction: row; margin-bottom: 12px; }
@@ -848,7 +812,6 @@ body {
     .modal-overlay { align-items: center; padding: 16px; }
     .modal-container { border-radius: 16px; max-height: 95vh; }
 }
-/* ===== LARGE (≥ 1400px) ===== */
 @media (min-width: 1400px) {
     .sidebar { width: 300px; }
     .main-logo { font-size: 72px; }
