@@ -13,6 +13,11 @@ async function processUploadedFile(file) {
   try {
     if (file.mimetype === 'application/pdf') {
       extractedText = await pdfService.extractTextFromPdf(file.path);
+      if (!extractedText || extractedText.trim().length < 10) {
+          console.log('PDF без текстового слоя — скан без OCR поддержки');
+          extractedText = '';
+          status = 'no_text';
+      }
     } else if (
       file.mimetype === 'image/jpeg' ||
       file.mimetype === 'image/png'

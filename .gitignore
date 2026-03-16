@@ -39,3 +39,8 @@ temp/
 # Build файлы (если будут)
 dist/
 build/
+
+node_modules/
+.env
+dev.db
+uploads/

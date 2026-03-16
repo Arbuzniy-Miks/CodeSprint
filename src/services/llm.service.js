@@ -1,19 +1,16 @@
-/**
- * Заглушка для LLM API
- * Для хакатона возвращает предопределенные ответы
- */
+
 class LLMService {
   async generateSummary(text) {
     console.log('🔮 [LLM] Generating summary...');
     
-    // Имитация задержки API
+
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    // Простой анализ текста
+
     const wordCount = text.split(/\s+/).length;
     const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
     
-    // Ищем ключевые элементы
+
     const hasContract = /договор|контракт|contract|agreement/i.test(text);
     const hasDate = text.match(/\d{1,2}\.\d{1,2}\.\d{4}/) || text.match(/\d{4}-\d{2}-\d{2}/);
     const hasAmount = text.match(/\d+[\s]*(?:руб|₽|usd|\$|eur|€)/i);
@@ -35,7 +32,7 @@ class LLMService {
         `Объем текста: ${wordCount} слов`
       ];
     } else {
-      // Берем первые несколько предложений как summary
+
       const firstSentences = sentences.slice(0, 3).join('. ') + '.';
       summary = firstSentences;
       
@@ -61,21 +58,21 @@ class LLMService {
   }
 
   async answerQuestion(question, context) {
-    console.log('🔮 [LLM] Answering question:', question);
+    console.log('[LLM] Answering question:', question);
     
-    // Имитация задержки
+
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     const questionLower = question.toLowerCase();
     const contextLower = context.toLowerCase();
     
-    // Проверяем, есть ли ответ в контексте
+
     const keywords = questionLower
       .replace(/[^\w\s]/g, '')
       .split(/\s+/)
       .filter(word => word.length > 3);
     
-    // Ищем релевантные предложения
+
     const sentences = context.split(/[.!?]+/).map(s => s.trim());
     const relevantSentences = [];
     
@@ -102,7 +99,7 @@ class LLMService {
       };
     }
     
-    // Если ничего не нашли
+
     return {
       answer: 'Информация отсутствует в загруженном файле',
       confidence: 0,

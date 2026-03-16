@@ -1,4 +1,5 @@
 const documentService = require('../services/document.service');
+const retrievalService = require('../services/retrieval.service');
 const AppError = require('../utils/AppError');
 
 const uploadDocument = async (req, res, next) => {
@@ -7,18 +8,27 @@ const uploadDocument = async (req, res, next) => {
       throw new AppError('Файл не был загружен', 400);
     }
 
-    const documentData = await documentService.createDocumentRecord(req.file);
+    const document = await documentService.processUploadedFile(req.file);
+
+    if (document.extractedText && document.extractedText.trim()) {
+      retrievalService.indexDocument(document.extractedText, document.id);
+      console.log(`Документ ${document.id} проиндексирован`);
+    }
 
     res.status(201).json({
       success: true,
       message: 'Файл успешно загружен',
-      data: documentData
+      id:           document.id,
+      originalName: document.originalName,
+      size:         document.size,
+      status:       document.status,
+      extractedText: document.extractedText
+        ? document.extractedText.substring(0, 300)
+        : null
     });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = {
-  uploadDocument
-};
+module.exports = { uploadDocument };
