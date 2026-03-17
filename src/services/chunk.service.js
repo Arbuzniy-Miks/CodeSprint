@@ -1,6 +1,4 @@
-/**
- * Сервис для разбиения текста на chunks
- */
+
 class ChunkService {
   /**
    @param {string} text
